@@ -11,10 +11,6 @@ Welcome to the Expense Manager app, your go-to solution for tracking and managin
 - Personalize your app experience by selecting a theme that suits your preferences.
 
 # Elementary design
-<p style="text-align: center;">
-	<img src="assets/all_screen.png" alt="Home Page" width="300" >
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<img src="assets/add_screen.png" alt="Creational Design Patterns" width="300">
-</p>
+
 
 
