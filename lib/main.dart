@@ -1,5 +1,5 @@
-import 'package:expense_tracker/screens/SignInPage.dart';
-import 'package:expense_tracker/screens/SignUpPage.dart';
+import 'package:expense_tracker/routes.dart';
+import 'package:expense_tracker/view/screens/auth/signIn_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,12 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => SignInPage(),
-        '/signup': (context) => SignUpPage(),
-      },
+      routes: routes,
+      home: SignInPage(),
     );
   }
 }
