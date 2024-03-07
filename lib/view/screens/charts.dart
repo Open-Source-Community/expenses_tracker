@@ -14,13 +14,17 @@ class ChartsPage extends StatefulWidget {
 class _ChartsPageState extends State<ChartsPage> {
   List items = ['Expenses', 'Income'];
   String dropvalue = 'Expenses';
-  Map<String, double> dataMap = Expenses.dataMap;
+  static Map<String, double> dataMap = {
+    "Electronics": 6,
+    "Car": 5,
+    "Clothing": 10.06,
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff212121),
+        backgroundColor: const Color.fromARGB(255, 43, 43, 43),
         centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size(10, 20),
@@ -51,7 +55,7 @@ class _ChartsPageState extends State<ChartsPage> {
                   onToggle: (index) {
                     print('switched to: $index');
                     setState(() {
-                      dataMap = Expenses.data;
+                      dataMap = dataMap;
                     });
                   },
                 ),
@@ -75,20 +79,10 @@ class _ChartsPageState extends State<ChartsPage> {
                     color: const Color.fromARGB(255, 26, 26, 26)),
                 child: CustomPieChart(dataMap: dataMap)),
             ExpensesItem(
-              title: Expenses.dataMap.keys.first,
+              title: "Car",
               iconData: Icons.electrical_services,
               price: "1,710",
             ),
-            ExpensesItem(
-              title: Expenses.dataMap.keys.elementAt(1),
-              iconData: Icons.directions_car_sharp,
-              price: "1,710",
-            ),
-            ExpensesItem(
-              title: Expenses.dataMap.keys.last,
-              iconData: Icons.widgets,
-              price: "1,710",
-            )
           ],
         ),
       ),

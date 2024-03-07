@@ -36,7 +36,7 @@ class CustomPieChart extends StatelessWidget {
           chartValueBackgroundColor: Colors.transparent,
           chartValueStyle:
               TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-      dataMap: Expenses.dataMap,
+      dataMap: dataMap,
     );
   }
 }

@@ -1,13 +1,14 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
+import 'package:expense_tracker/core/model/expenses_model.dart';
+import 'package:expense_tracker/core/model/incomes_model.dart';
 import 'package:expense_tracker/view/screens/account.dart';
 import 'package:expense_tracker/view/screens/charts.dart';
 import 'package:expense_tracker/view/screens/records.dart';
 import 'package:expense_tracker/view/screens/reports/reports.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
+import '../widgets/auth/CustomTextField.dart';
+import '../widgets/categories_list.dart';
+import '../widgets/customtextfieldform.dart';
 import '../widgets/reports/custom_toggle_switch.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,54 +25,41 @@ class _HomePageState extends State<HomePage> {
     ReportsPage(),
     const AccountPage()
   ];
-  List expensesCategories = [
-    {"name": "Shopping", "icon": Icons.shopping_cart_outlined},
-    {"name": "Food", "icon": Icons.food_bank_outlined},
-    {"name": "Telephone", "icon": Icons.phone_android_outlined},
-    {"name": "Entertainment", "icon": Icons.mic},
-    {"name": "Education", "icon": Icons.book_rounded},
-    {"name": "Sport", "icon": Icons.sports_score_sharp},
-    {"name": "Social", "icon": Icons.social_distance},
-    {"name": "Car", "icon": Icons.directions_car_sharp},
-  ];
-  List incomeCategories = [
-    {"name": "Shopping", "icon": Icons.shopping_cart_outlined},
-    {"name": "Food", "icon": Icons.food_bank_outlined},
-    {"name": "Telephone", "icon": Icons.phone_android_outlined},
-    {"name": "Entertainment", "icon": Icons.mic},
-  ];
+
   int currentIndex = 0;
   int sliding = 0;
-  int? select;
+
+  Expenses expenses = Expenses();
+  Incomes incomes = Incomes();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(
               icon: Icon(
                 Icons.text_snippet,
               ),
               label: "Records"),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               icon: Icon(
                 Icons.pie_chart_outline_sharp,
               ),
               label: "Charts"),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               icon: Icon(
                 Icons.receipt_long_outlined,
               ),
               label: "Reports"),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,
               ),
               label: "Me"),
         ],
         currentIndex: currentIndex,
-        backgroundColor: const Color(0xff212121),
+        backgroundColor: const Color.fromARGB(255, 43, 43, 43),
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.amber,
         iconSize: 30,
@@ -84,92 +72,68 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
+            scrollControlDisabledMaxHeightRatio: BorderSide.strokeAlignCenter,
+            useRootNavigator: true,
             useSafeArea: true,
             isScrollControlled: true,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
             context: context,
             builder: (context) {
-              return Center(
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      color: Color(0xff1c1c1c),
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30))),
-                  child: Column(
-                    children: [
-                      AppBar(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(30))),
-                        leading: InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: const Center(
-                              child: Text("Cancel",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w500))),
-                        ),
-                        centerTitle: true,
-                        title: const Text("Add",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 30),
-                        child: CustomToggleSwitch(
-                            index: sliding,
-                            labels: ['Expenses', 'Income'],
-                            onToggle: (newValue) {
-                              setState(() {
-                                sliding = newValue!;
-                                select == -1;
-                              });
-                            }),
-                      ),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisSpacing: 0.5, crossAxisCount: 4),
-                        itemCount: sliding == 0
-                            ? expensesCategories.length
-                            : incomeCategories.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
+              return StatefulBuilder(
+                builder: (context, setState) => Center(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Color(0xff1c1c1c),
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(30))),
+                    child: Column(
+                      children: [
+                        AppBar(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(30))),
+                          leading: InkWell(
                             onTap: () {
+                              Navigator.pop(context);
                               setState(() {
-                                select = index;
-                                print(select);
+                                selectItem = -1;
+                                sliding = 0;
                               });
                             },
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  radius: 25,
-                                  backgroundColor: select == index
-                                      ? Colors.amber
-                                      : const Color.fromARGB(255, 63, 63, 63),
-                                  child: Icon(
-                                    sliding == 0
-                                        ? expensesCategories[index]["icon"]
-                                        : incomeCategories[index]["icon"],
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                    sliding == 0
-                                        ? expensesCategories[index]["name"]
-                                        : incomeCategories[index]["name"],
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white))
-                              ],
+                            child: Center(
+                              child: Text("Cancel",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w500)),
                             ),
-                          );
-                        },
-                      )
-                    ],
+                          ),
+                          centerTitle: true,
+                          title: const Text("Add",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 30),
+                          child: CustomToggleSwitch(
+                              index: sliding,
+                              labels: const ['Expenses', 'Income'],
+                              onToggle: (newValue) {
+                                setState(() {
+                                  sliding = newValue!;
+                                  selectItem = -1;
+                                });
+                              }),
+                        ),
+                        Container(
+                            child: sliding == 0
+                                ? CategoriesList(
+                                    length: expenses.expensesCategories.length,
+                                    categories: expenses.expensesCategories)
+                                : CategoriesList(
+                                    length: incomes.incomeCategories.length,
+                                    categories: incomes.incomeCategories)),
+                      ],
+                    ),
                   ),
                 ),
               );

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:expense_tracker/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/account/account_features.dart';
@@ -41,8 +42,14 @@ class AccountPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 25),
-            ListFeatures(
-                title: "Shopping List", iconData: Icons.shopping_bag_outlined),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, AppRoutes.shoppingList);
+              },
+              child: ListFeatures(
+                  title: "Shopping List",
+                  iconData: Icons.shopping_bag_outlined),
+            ),
             ListFeatures(title: "Settings", iconData: Icons.settings),
           ],
         ),

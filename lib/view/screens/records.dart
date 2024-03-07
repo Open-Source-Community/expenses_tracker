@@ -11,7 +11,7 @@ class RecordsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff212121),
+        backgroundColor: const Color.fromARGB(255, 43, 43, 43),
         leading: Icon(Icons.search),
         centerTitle: true,
         title: Text(
