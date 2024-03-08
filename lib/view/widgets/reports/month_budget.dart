@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../categories_list.dart';
 import 'budget_details.dart';
 
 class MonthlyBudget extends StatelessWidget {
@@ -31,13 +32,14 @@ class MonthlyBudget extends StatelessWidget {
             ),
           ),
         ),
-        BudgetDetails(title: "Remaining:", data: "-2.160"),
+        BudgetDetails(
+            title: "Remaining:", data: "${incomes.total - expenses.total}"),
         const Divider(
           endIndent: 85,
           indent: 85,
         ),
-        BudgetDetails(title: "Budget:", data: "0"),
-        BudgetDetails(title: "Expenses:", data: "2.160"),
+        BudgetDetails(title: "Budget:", data: "${incomes.total}"),
+        BudgetDetails(title: "Expenses:", data: "${expenses.total}"),
       ]),
     );
   }

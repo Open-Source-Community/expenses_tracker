@@ -6,9 +6,7 @@ import 'package:expense_tracker/view/screens/records.dart';
 import 'package:expense_tracker/view/screens/reports/reports.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/auth/CustomTextField.dart';
 import '../widgets/categories_list.dart';
-import '../widgets/customtextfieldform.dart';
 import '../widgets/reports/custom_toggle_switch.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Widget> screens = [
-    const RecordsPage(),
+    RecordsPage(),
     ChartsPage(),
     ReportsPage(),
     const AccountPage()
@@ -29,8 +27,6 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   int sliding = 0;
 
-  Expenses expenses = Expenses();
-  Incomes incomes = Incomes();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +96,8 @@ class _HomePageState extends State<HomePage> {
                               setState(() {
                                 selectItem = -1;
                                 sliding = 0;
+                                ExpensesModel.amountController.clear();
+                                ExpensesModel.toggle = 0;
                               });
                             },
                             child: Center(
@@ -120,6 +118,7 @@ class _HomePageState extends State<HomePage> {
                               onToggle: (newValue) {
                                 setState(() {
                                   sliding = newValue!;
+                                  ExpensesModel.toggle = sliding;
                                   selectItem = -1;
                                 });
                               }),
@@ -127,11 +126,13 @@ class _HomePageState extends State<HomePage> {
                         Container(
                             child: sliding == 0
                                 ? CategoriesList(
-                                    length: expenses.expensesCategories.length,
-                                    categories: expenses.expensesCategories)
+                                    length:
+                                        ExpensesModel.expensesCategories.length,
+                                    categories:
+                                        ExpensesModel.expensesCategories)
                                 : CategoriesList(
-                                    length: incomes.incomeCategories.length,
-                                    categories: incomes.incomeCategories)),
+                                    length: IncomeModel.incomeCategories.length,
+                                    categories: IncomeModel.incomeCategories)),
                       ],
                     ),
                   ),

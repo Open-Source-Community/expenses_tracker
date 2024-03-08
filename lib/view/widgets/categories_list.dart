@@ -1,7 +1,12 @@
-import 'package:expense_tracker/view/widgets/auth/CustomTextField.dart';
+import 'package:expense_tracker/core/constants/routes.dart';
+import 'package:expense_tracker/core/model/expenses_model.dart';
+import 'package:expense_tracker/core/model/incomes_model.dart';
+import 'package:expense_tracker/view/screens/charts.dart';
 import 'package:expense_tracker/view/widgets/customtextfieldform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../../core/functions/validinput.dart';
 
 class CategoriesList extends StatefulWidget {
   final int length;
@@ -18,8 +23,20 @@ class CategoriesList extends StatefulWidget {
 }
 
 int selectItem = -1;
+ExpensesModel expenses = ExpensesModel(index: -1, amount: 0.0);
+IncomeModel incomes = IncomeModel(index: -1, amount: 0.0);
+bool check = false;
 
 class _CategoriesListState extends State<CategoriesList> {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      ExpensesModel.dateController.text =
+          DateFormat.yMMMMEEEEd().format(DateTime.now());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -40,44 +57,129 @@ class _CategoriesListState extends State<CategoriesList> {
               showDialog(
                   barrierDismissible: false,
                   context: context,
-                  builder: (context) => AlertDialog(
-                        insetPadding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 20),
-                        backgroundColor: const Color(0xff212121),
-                        content: const CustomTextFormAuth(
-                          keyboardType: TextInputType.number,
-                          hinttext: "Enter amount ",
+                  builder: (context) => Form(
+                        key: ExpensesModel.formstate,
+                        child: AlertDialog(
+                          title: Center(
+                            child: Text(
+                              ExpensesModel.toggle == 0
+                                  ? "Add Expenses"
+                                  : "Add Income",
+                              style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.amber),
+                            ),
+                          ),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 20),
+                          insetPadding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          backgroundColor: const Color(0xff212121),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CustomTextFormAuth(
+                                label: "Amount",
+                                keyboardType: TextInputType.number,
+                                hinttext: "Enter amount ",
+                                mycontroller: ExpensesModel.amountController,
+                                validate: (val) {
+                                  return validInput(val!, "number");
+                                },
+                              ),
+                              Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                initialEntryMode:
+                                                    DatePickerEntryMode.input,
+                                                firstDate: DateTime.now(),
+                                                lastDate: DateTime.parse(
+                                                    '2025-12-03'))
+                                            .then((value) {
+                                          setState(() {
+                                            ExpensesModel.dateController.text =
+                                                DateFormat.yMd().format(value!);
+                                          });
+                                        });
+                                      },
+                                      child: const Icon(
+                                        Icons.calendar_month_outlined,
+                                        color: Colors.amber,
+                                      )),
+                                  StatefulBuilder(
+                                    builder: (context, setState) => Text(
+                                      "  Date: ${ExpensesModel.dateController.text}",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    switch (ExpensesModel.toggle) {
+                                      case 0:
+                                        check = expenses.add(index);
+                                        expenses.calcTotal();
+
+                                        break;
+                                      case 1:
+                                        check = incomes.add(index);
+                                        incomes.calcTotal();
+
+                                        break;
+                                      default:
+                                        break;
+                                    }
+                                    if (check) {
+                                      Navigator.pushReplacementNamed(
+                                          context, AppRoutes.homepage);
+                                      selectItem = -1;
+                                      sliding = 0;
+                                      sliding = 0;
+                                      ExpensesModel.toggle = 0;
+                                      ExpensesModel.amountController.clear();
+                                    } else {
+                                      print("Not Valid");
+                                    }
+                                  });
+                                },
+                                child: const Text(
+                                  "Add",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.amber),
+                                )),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    selectItem = -1;
+                                    ExpensesModel.amountController.clear();
+                                    sliding = 0;
+                                    sliding = 0;
+                                  });
+                                },
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.amber),
+                                )),
+                          ],
                         ),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                setState(() {
-                                  selectItem = -1;
-                                });
-                              },
-                              child: const Text(
-                                "Add",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.amber),
-                              )),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                setState(() {
-                                  selectItem = -1;
-                                });
-                              },
-                              child: const Text(
-                                "Cancel",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.amber),
-                              )),
-                        ],
                       ));
             });
           },

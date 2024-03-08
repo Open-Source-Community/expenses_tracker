@@ -1,8 +1,12 @@
+import 'package:expense_tracker/core/model/incomes_model.dart';
+import 'package:expense_tracker/view/screens/records.dart';
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../core/model/expenses_model.dart';
-import '../widgets/reports/piechart.dart';
+import '../widgets/categories_list.dart';
+import '../widgets/data_items.dart';
+import '../widgets/reports/custom_toggle_switch.dart';
+import '../widgets/piechart.dart';
 
 class ChartsPage extends StatefulWidget {
   ChartsPage({super.key});
@@ -11,15 +15,9 @@ class ChartsPage extends StatefulWidget {
   State<ChartsPage> createState() => _ChartsPageState();
 }
 
-class _ChartsPageState extends State<ChartsPage> {
-  List items = ['Expenses', 'Income'];
-  String dropvalue = 'Expenses';
-  static Map<String, double> dataMap = {
-    "Electronics": 6,
-    "Car": 5,
-    "Clothing": 10.06,
-  };
+int sliding = 0;
 
+class _ChartsPageState extends State<ChartsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,86 +33,93 @@ class _ChartsPageState extends State<ChartsPage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                 ),
-                ToggleSwitch(
-                  minWidth: 164,
-                  borderWidth: 1.5,
-                  borderColor: const [Colors.white70],
-                  initialLabelIndex: 0,
-                  cornerRadius: 5,
-                  activeFgColor: Colors.black,
-                  inactiveBgColor: Colors.grey.shade900,
-                  inactiveFgColor: Colors.white,
-                  totalSwitches: 2,
-                  labels: ['Expenses', 'Income'],
-                  activeBgColors: const [
-                    [Colors.white],
-                    [Colors.white]
-                  ],
-                  minHeight: 30,
-                  fontSize: 18,
-                  onToggle: (index) {
-                    print('switched to: $index');
-                    setState(() {
-                      dataMap = dataMap;
-                    });
-                  },
-                ),
+                CustomToggleSwitch(
+                    index: sliding,
+                    labels: const ['Expenses', 'Income'],
+                    onToggle: (newValue) {
+                      setState(() {
+                        sliding = newValue!;
+                        if (sliding == 0) {
+                          length = ExpensesModel.notesNotifier.value.length;
+                        } else {
+                          length = IncomeModel.notesNotifier.value.length;
+                        }
+                      });
+                    }),
                 const SizedBox(height: 25)
               ],
             ),
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-                padding: const EdgeInsets.symmetric(vertical: 25),
-                margin:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                decoration: BoxDecoration(
-                    border: Border.fromBorderSide(
-                        BorderSide(color: Colors.grey.shade600, width: 0.4)),
-                    borderRadius: BorderRadius.circular(8),
-                    color: const Color.fromARGB(255, 26, 26, 26)),
-                child: CustomPieChart(dataMap: dataMap)),
-            ExpensesItem(
-              title: "Car",
-              iconData: Icons.electrical_services,
-              price: "1,710",
+      body: length == 0
+          ? NoData()
+          : ValueListenableBuilder(
+              valueListenable: sliding == 0
+                  ? ExpensesModel.notesNotifier
+                  : IncomeModel.notesNotifier,
+              builder: (context, value, child) => SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.symmetric(vertical: 25),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 10),
+                        decoration: BoxDecoration(
+                            border: Border.fromBorderSide(BorderSide(
+                                color: Colors.grey.shade600, width: 0.4)),
+                            borderRadius: BorderRadius.circular(8),
+                            color: const Color.fromARGB(255, 26, 26, 26)),
+                        child: CustomPieChart(
+                            centerTextTotal: sliding == 0
+                                ? expenses.calcTotal().toString()
+                                : incomes.calcTotal().toString(),
+                            dataMap: sliding == 0
+                                ? expenses.convertToMap()
+                                : incomes.convertToMap())),
+                    Container(
+                      height: 500,
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: sliding == 0
+                            ? ExpensesModel.notesNotifier.value.length
+                            : IncomeModel.notesNotifier.value.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: DataItems(
+                              iconData: sliding == 0
+                                  ? ExpensesModel.expensesCategories[
+                                      ExpensesModel.notesNotifier.value[index]
+                                          .index]["icon"]
+                                  : IncomeModel.incomeCategories[IncomeModel
+                                      .notesNotifier
+                                      .value[index]
+                                      .index]["icon"],
+                              title: sliding == 0
+                                  ? ExpensesModel.expensesCategories[
+                                      ExpensesModel.notesNotifier.value[index]
+                                          .index]["name"]
+                                  : IncomeModel.incomeCategories[IncomeModel
+                                      .notesNotifier
+                                      .value[index]
+                                      .index]["name"],
+                              price: sliding == 0
+                                  ? ExpensesModel
+                                      .notesNotifier.value[index].amount
+                                      .toString()
+                                  : IncomeModel
+                                      .notesNotifier.value[index].amount
+                                      .toString(),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ExpensesItem extends StatelessWidget {
-  final String title;
-  final String price;
-  final IconData iconData;
-  ExpensesItem({
-    super.key,
-    required this.title,
-    required this.price,
-    required this.iconData,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: Color.fromARGB(255, 21, 21, 21),
-        child: Icon(
-          iconData,
-          color: Colors.amber,
-        ),
-      ),
-      title: Text(title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-      trailing: Text(price,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
     );
   }
 }

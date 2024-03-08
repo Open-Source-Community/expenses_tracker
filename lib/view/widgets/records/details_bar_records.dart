@@ -1,3 +1,5 @@
+import 'package:expense_tracker/view/screens/records.dart';
+import 'package:expense_tracker/view/widgets/categories_list.dart';
 import 'package:flutter/material.dart';
 import 'info_bar_records.dart';
 
@@ -8,17 +10,19 @@ class DetailsBarRecords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InformationBar(title: "2024", data: "Mar"),
+        InformationBar(
+            title: dateYearController.text, data: dateMonthController.text),
         Text(
           "|",
           style: TextStyle(color: Colors.grey, fontSize: 30),
         ),
-        InformationBar(title: "Expenses", data: "0"),
-        InformationBar(title: "Income", data: "0"),
-        InformationBar(title: "Balance", data: "0"),
+        InformationBar(title: "Expenses", data: "${expenses.total}"),
+        InformationBar(title: "Income", data: "${incomes.total}"),
+        InformationBar(
+            title: "Balance", data: "${incomes.total - expenses.total}"),
       ],
     );
   }
