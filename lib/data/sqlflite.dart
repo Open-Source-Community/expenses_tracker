@@ -27,32 +27,6 @@ class SqlDB {
     "password" TEXT NOT NULL
     )
     ''');
-    UserModel user = const UserModel(username: 'remo', password: '123');
-    await db.insert('user', user.toMap());
-  }
-
-  readDate(String sql) async {
-    Database? mydb = await db;
-    List<Map> response = await mydb!.rawQuery(sql);
-    return response;
-  }
-
-  insertDate(String sql) async {
-    Database? mydb = await db;
-    int response = await mydb!.rawInsert(sql);
-    return response;
-  }
-
-  deleteDate(String sql) async {
-    Database? mydb = await db;
-    int response = await mydb!.rawDelete(sql);
-    return response;
-  }
-
-  updateDate(String sql) async {
-    Database? mydb = await db;
-    int response = await mydb!.rawUpdate(sql);
-    return response;
   }
 
   Future<UserModel?> getUser(String username) async {
@@ -69,5 +43,11 @@ class SqlDB {
           username: users.first['username'] as String,
           password: users.first['password'] as String);
     }
+  }
+
+  Future<int?> insertUser(UserModel user) async {
+    final Database? mydb = await db;
+    return await mydb?.insert("user", user.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.fail);
   }
 }

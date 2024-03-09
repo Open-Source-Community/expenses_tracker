@@ -69,14 +69,33 @@ class _LoginFormState extends State<LoginForm> {
 
                 if (username.isNotEmpty && password.isNotEmpty) {
                   UserModel? user = await db.getUser(username);
-
-                  if (user != null) {
-                    if (user.password.compareTo(password) == 0)
-                      Navigator.of(context, rootNavigator: true)
-                          .pushNamed(AppRoutes.homepage);
-                  }
+                  if (user?.password.compareTo(password) == 0)
+                    Navigator.of(context, rootNavigator: true)
+                        .pushNamed(AppRoutes.homepage);
+                  else
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              title: Text(
+                                "Error",
+                                style: TextStyle(color: Colors.yellow),
+                              ),
+                              content: Text("Invalid username or password!",
+                                  style: TextStyle(fontSize: 20)),
+                              icon: Icon(Icons.error, color: Colors.red),
+                            ));
                 } else {
-
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: Text(
+                              "Error",
+                              style: TextStyle(color: Colors.yellow),
+                            ),
+                            content: Text("Please enter username and password!",
+                                style: TextStyle(fontSize: 20)),
+                            icon: Icon(Icons.error, color: Colors.red),
+                          ));
                 }
               },
               child: const Text("Login")),
