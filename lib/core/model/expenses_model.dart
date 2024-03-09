@@ -1,7 +1,27 @@
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 
-class Expenses {
-  List expensesCategories = [
+import '../../data/local/hive_helper.dart';
+
+part 'expenses_model.g.dart';
+
+@HiveType(typeId: 0)
+class ExpensesModel {
+  @HiveField(0)
+  final double amount;
+  @HiveField(1)
+  final int index;
+  double total = 0.0;
+  static int toggle = 0;
+  Map<String, double> map = {};
+
+  static final notesNotifier =
+      ValueNotifier<List<ExpensesModel>>(HiveHelper().fetchDataExpenses());
+  static TextEditingController amountController = TextEditingController();
+  static var dateController = TextEditingController();
+  static GlobalKey<FormState> formstate = GlobalKey<FormState>();
+  static List expensesCategories = [
     {"name": "Shopping", "icon": Icons.shopping_cart_outlined},
     {"name": "Food", "icon": Icons.dining},
     {"name": "Telephone", "icon": Icons.phone_android_outlined},
@@ -26,4 +46,44 @@ class Expenses {
     {"name": "Vegetable", "icon": Icons.ramen_dining_rounded},
     {"name": "Fruit", "icon": Icons.lunch_dining},
   ];
+
+  ExpensesModel({
+    required this.amount,
+    required this.index,
+  });
+
+  bool add(int indexItem) {
+    var formdata = formstate.currentState;
+    if (formdata!.validate()) {
+      print("Valid");
+      // list.add(ExpensesModel(
+      //     index: indexItem, amount: double.parse(amountController.text)));
+      var expensesModel = ExpensesModel(
+          index: indexItem, amount: double.parse(amountController.text));
+      HiveHelper().insertToDatabaseE(expensesModel);
+      notesNotifier.value = HiveHelper().fetchDataExpenses();
+      print(notesNotifier.value.length);
+      total = 0.0;
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Map<String, double> convertToMap() {
+    notesNotifier.value.forEach((element) {
+      map.addAll(
+          {"${expensesCategories[element.index]["name"]}": element.amount});
+    });
+    return map;
+  }
+
+  double calcTotal() {
+    total = 0.0;
+    for (var element in notesNotifier.value) {
+      total += element.amount;
+    }
+    return total;
+  }
 }

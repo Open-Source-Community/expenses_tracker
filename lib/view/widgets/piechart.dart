@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-import '../../../core/model/expenses_model.dart';
-
 class CustomPieChart extends StatelessWidget {
   final Map<String, double> dataMap;
+  final String centerTextTotal;
   CustomPieChart({
     super.key,
     required this.dataMap,
+    required this.centerTextTotal,
   });
 
   @override
@@ -19,7 +19,7 @@ class CustomPieChart extends StatelessWidget {
       initialAngleInDegree: 0,
       chartType: ChartType.ring,
       ringStrokeWidth: 32,
-      centerText: "2,160",
+      centerText: centerTextTotal,
       legendOptions: const LegendOptions(
         showLegendsInRow: false,
         legendPosition: LegendPosition.right,
