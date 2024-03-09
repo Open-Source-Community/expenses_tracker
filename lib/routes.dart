@@ -1,3 +1,4 @@
+import 'package:expense_tracker/view/screens/auth/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'core/constants/routes.dart';
 import 'view/screens/auth/signIn_page.dart';
@@ -10,4 +11,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoutes.signUp: (context) => const SignUpPage(),
   AppRoutes.homepage: (context) => HomePage(),
   AppRoutes.shoppingList: (context) => ShoppingList(),
+  AppRoutes.settings: (context) => SettingsPage(),
 };

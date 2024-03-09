@@ -1,7 +1,7 @@
-import 'package:expense_tracker/view/widgets/auth/CustomTextField.dart';
+import 'package:expense_tracker/view/widgets/auth/LoginForm.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/auth/CustomPasswordTextField.dart';
+import '../../widgets/auth/SignUpForm.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -29,21 +29,7 @@ class SignUpPage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              CustomTextField(textHint: "Username"),
-              SizedBox(
-                height: 15,
-              ),
-              CustomPasswordTextField(textHint: "Password"),
-              SizedBox(
-                height: 15,
-              ),
-              CustomPasswordTextField(
-                textHint: "Confirm Password",
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              ElevatedButton(onPressed: () {}, child: Text("Submit"))
+              SignUpForm()
             ],
           ),
         ),
@@ -51,3 +37,4 @@ class SignUpPage extends StatelessWidget {
     );
   }
 }
+

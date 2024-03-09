@@ -1,7 +1,7 @@
 import 'package:expense_tracker/core/constants/routes.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/auth/CustomPasswordTextField.dart';
-import '../../widgets/auth/CustomTextField.dart';
+import '../../widgets/auth/SignUpForm.dart';
+import '../../widgets/auth/LoginForm.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -35,25 +35,7 @@ class SignInPage extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const CustomTextField(
-                textHint: "Username",
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const CustomPasswordTextField(textHint: "Password"),
-              const SizedBox(
-                height: 15,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .pushNamed(AppRoutes.homepage);
-                  },
-                  child: const Text("Login")),
+              LoginForm(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -73,3 +55,4 @@ class SignInPage extends StatelessWidget {
     );
   }
 }
+

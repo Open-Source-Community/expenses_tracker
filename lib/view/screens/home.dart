@@ -6,7 +6,7 @@ import 'package:expense_tracker/view/screens/records.dart';
 import 'package:expense_tracker/view/screens/reports/reports.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/auth/CustomTextField.dart';
+import '../widgets/auth/LoginForm.dart';
 import '../widgets/categories_list.dart';
 import '../widgets/customtextfieldform.dart';
 import '../widgets/reports/custom_toggle_switch.dart';
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-            scrollControlDisabledMaxHeightRatio: BorderSide.strokeAlignCenter,
+            // scrollControlDisabledMaxHeightRatio: BorderSide.strokeAlignCenter,
             useRootNavigator: true,
             useSafeArea: true,
             isScrollControlled: true,
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         AppBar(
-                          shape: const RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(30))),
                           leading: InkWell(

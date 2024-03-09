@@ -50,7 +50,9 @@ class AccountPage extends StatelessWidget {
                   title: "Shopping List",
                   iconData: Icons.shopping_bag_outlined),
             ),
-            ListFeatures(title: "Settings", iconData: Icons.settings),
+           InkWell(onTap: (){
+             Navigator.pushNamed(context, AppRoutes.settings);
+           },child: ListFeatures(title: "Settings", iconData: Icons.settings))
           ],
         ),
       ),
