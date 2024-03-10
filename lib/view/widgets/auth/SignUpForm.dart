@@ -99,6 +99,13 @@ class _SignUpFormState extends State<SignUpForm> {
                               style: TextStyle(fontSize: 20),
                             ),
                             icon: Icon(Icons.error, color: Colors.red),
+                            actions: <Widget>[
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text("Ok"))
+                            ],
                           ));
                 } else {
                   showDialog(
@@ -111,6 +118,13 @@ class _SignUpFormState extends State<SignUpForm> {
                             content: Text("Empty TextFields!",
                                 style: TextStyle(fontSize: 20)),
                             icon: Icon(Icons.error, color: Colors.red),
+                            actions: <Widget>[
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text("Ok"))
+                            ],
                           ));
                 }
               },

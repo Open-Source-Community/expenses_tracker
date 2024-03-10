@@ -83,6 +83,13 @@ class _LoginFormState extends State<LoginForm> {
                               content: Text("Invalid username or password!",
                                   style: TextStyle(fontSize: 20)),
                               icon: Icon(Icons.error, color: Colors.red),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("Ok"))
+                          ],
                             ));
                 } else {
                   showDialog(
@@ -95,6 +102,13 @@ class _LoginFormState extends State<LoginForm> {
                             content: Text("Please enter username and password!",
                                 style: TextStyle(fontSize: 20)),
                             icon: Icon(Icons.error, color: Colors.red),
+                        actions: <Widget>[
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Ok"))
+                        ],
                           ));
                 }
               },
