@@ -2,10 +2,25 @@ import 'package:flutter/material.dart';
 import '../categories_list.dart';
 import 'budget_details.dart';
 
-class MonthlyBudget extends StatelessWidget {
+class MonthlyBudget extends StatefulWidget {
   const MonthlyBudget({
     super.key,
   });
+
+  @override
+  State<MonthlyBudget> createState() => _MonthlyBudgetState();
+}
+
+class _MonthlyBudgetState extends State<MonthlyBudget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      incomes.total;
+      expenses.total;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

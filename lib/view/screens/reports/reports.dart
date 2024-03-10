@@ -1,9 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:expense_tracker/core/model/incomes_model.dart';
+import 'package:expense_tracker/view/widgets/categories_list.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/reports/custom_toggle_switch.dart';
+
+import '../../widgets/piechart.dart';
+
+import '../records.dart';
 import 'analytics_reports.dart';
-import 'manage_accounts.dart';
 
 class ReportsPage extends StatefulWidget {
   ReportsPage({super.key});
@@ -13,42 +15,56 @@ class ReportsPage extends StatefulWidget {
 }
 
 class _ReportsPageState extends State<ReportsPage> {
-  int currentindex = 0;
-
-  List<Widget> screens = [AnalyticsReports(), ManageAccounts()];
+  double remaining = 0.0;
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      incomes.total;
+      expenses.total;
+      remaining = (incomes.total - expenses.total);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 43, 43, 43),
-        centerTitle: true,
-        title: const Text(
-          "Reports",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        bottom: PreferredSize(
-          preferredSize: Size(10, 60),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                CustomToggleSwitch(
-                  index: currentindex,
-                  labels: ['Analytics', 'Accounts'],
-                  onToggle: (index) {
-                    setState(() {
-                      currentindex = index!;
-                    });
-                  },
-                ),
-                SizedBox(height: 25)
-              ],
-            ),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color.fromARGB(255, 43, 43, 43),
+          centerTitle: true,
+          title: const Text(
+            "Reports",
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-      ),
-      body: screens[currentindex],
-    );
+        body: length == 0
+            ? NoData()
+            : ValueListenableBuilder(
+                valueListenable: IncomeModel.notesNotifier,
+                builder: (context, value, child) => Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 25),
+                      margin:
+                          const EdgeInsets.only(top: 20, right: 10, left: 10),
+                      decoration: BoxDecoration(
+                          border: Border.fromBorderSide(BorderSide(
+                              color: Colors.grey.shade600, width: 0.4)),
+                          borderRadius: BorderRadius.circular(8),
+                          color: const Color.fromARGB(255, 26, 26, 26)),
+                      child: CustomPieChart(
+                        total: incomes.total,
+                        centerTextTotal: "${incomes.total}",
+                        dataMap: {
+                          "Remaining": remaining,
+                          "Expenses": expenses.total
+                        },
+                      ),
+                    ),
+                    AnalyticsReports()
+                  ],
+                ),
+              ));
   }
 }

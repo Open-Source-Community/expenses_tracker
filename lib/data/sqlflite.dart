@@ -1,4 +1,4 @@
-import 'package:expense_tracker/data/UserModel.dart';
+import 'package:expense_tracker/core/model/UserModel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

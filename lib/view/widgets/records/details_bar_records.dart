@@ -3,10 +3,24 @@ import 'package:expense_tracker/view/widgets/categories_list.dart';
 import 'package:flutter/material.dart';
 import 'info_bar_records.dart';
 
-class DetailsBarRecords extends StatelessWidget {
+class DetailsBarRecords extends StatefulWidget {
   const DetailsBarRecords({
     super.key,
   });
+
+  @override
+  State<DetailsBarRecords> createState() => _DetailsBarRecordsState();
+}
+
+class _DetailsBarRecordsState extends State<DetailsBarRecords> {
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      incomes.total;
+      expenses.total;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

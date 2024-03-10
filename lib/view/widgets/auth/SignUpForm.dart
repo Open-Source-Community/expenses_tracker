@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/routes.dart';
-import '../../../data/UserModel.dart';
+import '../../../core/model/UserModel.dart';
 import '../../../data/sqlflite.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -37,7 +37,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
                 icon: Icon(Icons.person),
                 filled: true,
-                fillColor: Colors.black54),
+                fillColor: Color.fromARGB(255, 43, 43, 43)),
             controller: userValue,
           ),
           const SizedBox(
@@ -51,7 +51,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                fillColor: Colors.black54,
+                fillColor: Color.fromARGB(255, 43, 43, 43),
                 filled: true),
             controller: passValue,
           ),
@@ -66,7 +66,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                fillColor: Colors.black54,
+                fillColor: Color.fromARGB(255, 43, 43, 43),
                 filled: true),
             controller: confirmValue,
           ),

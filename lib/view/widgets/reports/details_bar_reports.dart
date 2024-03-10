@@ -4,10 +4,25 @@ import 'package:flutter/material.dart';
 import '../categories_list.dart';
 import 'info_bar_reports.dart';
 
-class DetailsBarReports extends StatelessWidget {
+class DetailsBarReports extends StatefulWidget {
   const DetailsBarReports({
     super.key,
   });
+
+  @override
+  State<DetailsBarReports> createState() => _DetailsBarReportsState();
+}
+
+class _DetailsBarReportsState extends State<DetailsBarReports> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      incomes.total;
+      expenses.total;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import 'package:expense_tracker/view/screens/reports/reports.dart';
 import 'package:flutter/material.dart';
 import '../widgets/auth/LoginForm.dart';
 import '../widgets/categories_list.dart';
-import '../widgets/reports/custom_toggle_switch.dart';
+import '../widgets/custom_toggle_switch.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         AppBar(
-                              shape: const RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(30))),
                           leading: InkWell(

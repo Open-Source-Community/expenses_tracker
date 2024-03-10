@@ -4,7 +4,9 @@ import 'package:pie_chart/pie_chart.dart';
 class CustomPieChart extends StatelessWidget {
   final Map<String, double> dataMap;
   final String centerTextTotal;
+  double? total;
   CustomPieChart({
+    this.total,
     super.key,
     required this.dataMap,
     required this.centerTextTotal,
@@ -20,6 +22,7 @@ class CustomPieChart extends StatelessWidget {
       chartType: ChartType.ring,
       ringStrokeWidth: 32,
       centerText: centerTextTotal,
+      totalValue: total,
       legendOptions: const LegendOptions(
         showLegendsInRow: false,
         legendPosition: LegendPosition.right,

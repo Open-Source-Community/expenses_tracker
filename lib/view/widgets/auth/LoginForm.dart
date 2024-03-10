@@ -1,4 +1,4 @@
-import 'package:expense_tracker/data/UserModel.dart';
+import 'package:expense_tracker/core/model/UserModel.dart';
 import 'package:expense_tracker/data/sqlflite.dart';
 import 'package:flutter/material.dart';
 
@@ -31,12 +31,12 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           TextField(
             decoration: InputDecoration(
-              label: Text("Username"),
+              label: const Text("Username"),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
               filled: true,
-              fillColor: Colors.black54,
+              fillColor: Color.fromARGB(255, 43, 43, 43),
             ),
             controller: userValue,
           ),
@@ -46,12 +46,12 @@ class _LoginFormState extends State<LoginForm> {
           TextField(
             obscureText: true,
             decoration: InputDecoration(
-                icon: Icon(Icons.lock),
-                label: Text("Password"),
+                icon: const Icon(Icons.lock),
+                label: const Text("Password"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                fillColor: Colors.black54,
+                fillColor: Color.fromARGB(255, 43, 43, 43),
                 filled: true),
             controller: passValue,
           ),
@@ -69,46 +69,49 @@ class _LoginFormState extends State<LoginForm> {
 
                 if (username.isNotEmpty && password.isNotEmpty) {
                   UserModel? user = await db.getUser(username);
-                  if (user?.password.compareTo(password) == 0)
+                  if (user?.password.compareTo(password) == 0) {
                     Navigator.of(context, rootNavigator: true)
                         .pushNamed(AppRoutes.homepage);
-                  else
+                  } else {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                              title: Text(
+                              title: const Text(
                                 "Error",
                                 style: TextStyle(color: Colors.yellow),
                               ),
-                              content: Text("Invalid username or password!",
+                              content: const Text(
+                                  "Invalid username or password!",
                                   style: TextStyle(fontSize: 20)),
-                              icon: Icon(Icons.error, color: Colors.red),
-                          actions: <Widget>[
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text("Ok"))
-                          ],
+                              icon: const Icon(Icons.error, color: Colors.red),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("Ok"))
+                              ],
                             ));
+                  }
                 } else {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                            title: Text(
+                            title: const Text(
                               "Error",
                               style: TextStyle(color: Colors.yellow),
                             ),
-                            content: Text("Please enter username and password!",
+                            content: const Text(
+                                "Please enter username and password!",
                                 style: TextStyle(fontSize: 20)),
-                            icon: Icon(Icons.error, color: Colors.red),
-                        actions: <Widget>[
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text("Ok"))
-                        ],
+                            icon: const Icon(Icons.error, color: Colors.red),
+                            actions: <Widget>[
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("Ok"))
+                            ],
                           ));
                 }
               },

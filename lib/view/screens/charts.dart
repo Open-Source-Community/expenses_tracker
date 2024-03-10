@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/model/expenses_model.dart';
 import '../widgets/categories_list.dart';
 import '../widgets/data_items.dart';
-import '../widgets/reports/custom_toggle_switch.dart';
+import '../widgets/custom_toggle_switch.dart';
 import '../widgets/piechart.dart';
 
 class ChartsPage extends StatefulWidget {
