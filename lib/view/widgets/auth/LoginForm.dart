@@ -1,4 +1,6 @@
 import 'package:expense_tracker/core/model/UserModel.dart';
+import 'package:expense_tracker/core/model/expenses_model.dart';
+import 'package:expense_tracker/core/model/incomes_model.dart';
 import 'package:expense_tracker/data/sqlflite.dart';
 import 'package:flutter/material.dart';
 
@@ -70,6 +72,20 @@ class _LoginFormState extends State<LoginForm> {
                 if (username.isNotEmpty && password.isNotEmpty) {
                   UserModel? user = await db.getUser(username);
                   if (user?.password.compareTo(password) == 0) {
+                    ExpensesModel.user = user!.username;
+                    IncomeModel.user = user.username;
+                    ExpensesModel.expensesList.clear();
+                    IncomeModel.incomeList.clear();
+                    for (var element in ExpensesModel.notifierListener.value) {
+                      if (element.username?.compareTo(user.username) == 0) {
+                        ExpensesModel.expensesList.add(element);
+                      }
+                    }
+                    for (var element in IncomeModel.notifierListener.value) {
+                      if (element.username?.compareTo(user.username) == 0) {
+                        IncomeModel.incomeList.add(element);
+                      }
+                    }
                     Navigator.of(context, rootNavigator: true)
                         .pushNamed(AppRoutes.homepage);
                   } else {

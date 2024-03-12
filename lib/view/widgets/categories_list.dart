@@ -24,8 +24,10 @@ class CategoriesList extends StatefulWidget {
 }
 
 int selectItem = -1;
-ExpensesModel expenses = ExpensesModel(index: -1, amount: 0.0);
-IncomeModel incomes = IncomeModel(index: -1, amount: 0.0);
+ExpensesModel expenses =
+    ExpensesModel(index: 0, amount: 0.0, username: ExpensesModel.user);
+IncomeModel incomes =
+    IncomeModel(index: 0, amount: 0.0, username: IncomeModel.user);
 bool check = false;
 
 class _CategoriesListState extends State<CategoriesList> {

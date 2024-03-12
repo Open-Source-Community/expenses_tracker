@@ -33,8 +33,8 @@ class _RecordsPageState extends State<RecordsPage> {
       dateYearController.text = DateFormat.y().format(DateTime.now());
       dateMonthController.text = DateFormat.MMM().format(DateTime.now());
       sliding == 0
-          ? length = ExpensesModel.notesNotifier.value.length
-          : length = IncomeModel.notesNotifier.value.length;
+          ? length = ExpensesModel.expensesList.length
+          : length = IncomeModel.incomeList.length;
     });
   }
 
@@ -87,9 +87,9 @@ class _RecordsPageState extends State<RecordsPage> {
                       setState(() {
                         sliding = newValue!;
                         if (sliding == 0) {
-                          length = ExpensesModel.notesNotifier.value.length;
+                          length = ExpensesModel.expensesList.length;
                         } else {
-                          length = IncomeModel.notesNotifier.value.length;
+                          length = IncomeModel.incomeList.length;
                         }
                       });
                     }),
@@ -108,8 +108,8 @@ class _RecordsPageState extends State<RecordsPage> {
             )
           : ValueListenableBuilder(
               valueListenable: sliding == 0
-                  ? ExpensesModel.notesNotifier
-                  : IncomeModel.notesNotifier,
+                  ? ExpensesModel.notifierListener
+                  : IncomeModel.notifierListener,
               builder: (context, value, child) => ListView.builder(
                 itemCount: length,
                 itemBuilder: (context, index) {
@@ -118,20 +118,19 @@ class _RecordsPageState extends State<RecordsPage> {
                     child: StatefulBuilder(
                       builder: (context, setState) => DataItems(
                         iconData: sliding == 0
-                            ? ExpensesModel.expensesCategories[ExpensesModel
-                                .notesNotifier.value[index].index]["icon"]
-                            : IncomeModel.incomeCategories[IncomeModel
-                                .notesNotifier.value[index].index]["icon"],
+                            ? ExpensesModel.expensesCategories[
+                                ExpensesModel.expensesList[index].index]["icon"]
+                            : IncomeModel.incomeCategories[
+                                IncomeModel.incomeList[index].index]["icon"],
                         title: sliding == 0
-                            ? ExpensesModel.expensesCategories[ExpensesModel
-                                .notesNotifier.value[index].index]["name"]
-                            : IncomeModel.incomeCategories[IncomeModel
-                                .notesNotifier.value[index].index]["name"],
+                            ? ExpensesModel.expensesCategories[
+                                ExpensesModel.expensesList[index].index]["name"]
+                            : IncomeModel.incomeCategories[
+                                IncomeModel.incomeList[index].index]["name"],
                         price: sliding == 0
-                            ? ExpensesModel.notesNotifier.value[index].amount
+                            ? ExpensesModel.expensesList[index].amount
                                 .toString()
-                            : IncomeModel.notesNotifier.value[index].amount
-                                .toString(),
+                            : IncomeModel.incomeList[index].amount.toString(),
                       ),
                     ),
                   );

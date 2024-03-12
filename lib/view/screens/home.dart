@@ -3,7 +3,7 @@ import 'package:expense_tracker/core/model/incomes_model.dart';
 import 'package:expense_tracker/view/screens/account.dart';
 import 'package:expense_tracker/view/screens/charts.dart';
 import 'package:expense_tracker/view/screens/records.dart';
-import 'package:expense_tracker/view/screens/reports/reports.dart';
+import 'package:expense_tracker/view/screens/reports.dart';
 import 'package:flutter/material.dart';
 import '../widgets/auth/LoginForm.dart';
 import '../widgets/categories_list.dart';
@@ -67,6 +67,10 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          print(ExpensesModel.expensesList);
+          print(IncomeModel.incomeList);
+          print(ExpensesModel.expensesList.length);
+          print(IncomeModel.incomeList.length);
           showModalBottomSheet(
             // scrollControlDisabledMaxHeightRatio: BorderSide.strokeAlignCenter,
             useRootNavigator: true,

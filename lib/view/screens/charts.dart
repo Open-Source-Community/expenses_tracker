@@ -15,6 +15,7 @@ class ChartsPage extends StatefulWidget {
   State<ChartsPage> createState() => _ChartsPageState();
 }
 
+Map<String, double> nodata = {"": 0.0};
 int sliding = 0;
 
 class _ChartsPageState extends State<ChartsPage> {
@@ -40,9 +41,9 @@ class _ChartsPageState extends State<ChartsPage> {
                       setState(() {
                         sliding = newValue!;
                         if (sliding == 0) {
-                          length = ExpensesModel.notesNotifier.value.length;
+                          length = ExpensesModel.expensesList.length;
                         } else {
-                          length = IncomeModel.notesNotifier.value.length;
+                          length = IncomeModel.incomeList.length;
                         }
                       });
                     }),
@@ -56,8 +57,8 @@ class _ChartsPageState extends State<ChartsPage> {
           ? NoData()
           : ValueListenableBuilder(
               valueListenable: sliding == 0
-                  ? ExpensesModel.notesNotifier
-                  : IncomeModel.notesNotifier,
+                  ? ExpensesModel.notifierListener
+                  : IncomeModel.notifierListener,
               builder: (context, value, child) => SingleChildScrollView(
                 child: Column(
                   children: [
@@ -82,34 +83,28 @@ class _ChartsPageState extends State<ChartsPage> {
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: sliding == 0
-                            ? ExpensesModel.notesNotifier.value.length
-                            : IncomeModel.notesNotifier.value.length,
+                            ? ExpensesModel.expensesList.length
+                            : IncomeModel.incomeList.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: DataItems(
                               iconData: sliding == 0
                                   ? ExpensesModel.expensesCategories[
-                                      ExpensesModel.notesNotifier.value[index]
-                                          .index]["icon"]
+                                      ExpensesModel
+                                          .expensesList[index].index]["icon"]
                                   : IncomeModel.incomeCategories[IncomeModel
-                                      .notesNotifier
-                                      .value[index]
-                                      .index]["icon"],
+                                      .incomeList[index].index]["icon"],
                               title: sliding == 0
                                   ? ExpensesModel.expensesCategories[
-                                      ExpensesModel.notesNotifier.value[index]
-                                          .index]["name"]
+                                      ExpensesModel
+                                          .expensesList[index].index]["name"]
                                   : IncomeModel.incomeCategories[IncomeModel
-                                      .notesNotifier
-                                      .value[index]
-                                      .index]["name"],
+                                      .incomeList[index].index]["name"],
                               price: sliding == 0
-                                  ? ExpensesModel
-                                      .notesNotifier.value[index].amount
+                                  ? ExpensesModel.expensesList[index].amount
                                       .toString()
-                                  : IncomeModel
-                                      .notesNotifier.value[index].amount
+                                  : IncomeModel.incomeList[index].amount
                                       .toString(),
                             ),
                           );

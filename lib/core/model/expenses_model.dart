@@ -12,11 +12,15 @@ class ExpensesModel {
   final double amount;
   @HiveField(1)
   final int index;
+  @HiveField(2)
+  final String? username;
   double total = 0.0;
   static int toggle = 0;
+  static String user = "no user";
   Map<String, double> map = {};
+  static List expensesList = [];
 
-  static final notesNotifier =
+  static final notifierListener =
       ValueNotifier<List<ExpensesModel>>(HiveHelper().fetchDataExpenses());
   static TextEditingController amountController = TextEditingController();
   static var dateController = TextEditingController();
@@ -47,23 +51,28 @@ class ExpensesModel {
     {"name": "Fruit", "icon": Icons.lunch_dining},
   ];
 
-  ExpensesModel({
-    required this.amount,
-    required this.index,
-  });
+  ExpensesModel(
+      {required this.amount, required this.index, required this.username});
 
   bool add(int indexItem) {
     var formdata = formstate.currentState;
     if (formdata!.validate()) {
       print("Valid");
-      // list.add(ExpensesModel(
-      //     index: indexItem, amount: double.parse(amountController.text)));
       var expensesModel = ExpensesModel(
-          index: indexItem, amount: double.parse(amountController.text));
+          username: user,
+          index: indexItem,
+          amount: double.parse(amountController.text));
       HiveHelper().insertToDatabaseE(expensesModel);
-      notesNotifier.value = HiveHelper().fetchDataExpenses();
-      print(notesNotifier.value.length);
+      notifierListener.value = HiveHelper().fetchDataExpenses();
+      print(notifierListener.value.length);
+
       total = 0.0;
+      expensesList.clear();
+      for (var element in notifierListener.value) {
+        if (element.username?.compareTo(user) == 0) {
+          expensesList.add(element);
+        }
+      }
 
       return true;
     } else {
@@ -72,17 +81,26 @@ class ExpensesModel {
   }
 
   Map<String, double> convertToMap() {
-    notesNotifier.value.forEach((element) {
-      map.addAll(
-          {"${expensesCategories[element.index]["name"]}": element.amount});
+    Map<String, double> nodata = {"": 0.0, "-": 0.0};
+    notifierListener.value.forEach((element) {
+      if (element.username?.compareTo(user) == 0) {
+        map.addAll(
+            {"${expensesCategories[element.index]["name"]}": element.amount});
+      }
     });
+    if (notifierListener.value.isEmpty) {
+      return nodata;
+    }
+
     return map;
   }
 
   double calcTotal() {
     total = 0.0;
-    for (var element in notesNotifier.value) {
-      total += element.amount;
+    for (var element in notifierListener.value) {
+      if (element.username?.compareTo(user) == 0) {
+        total += element.amount;
+      }
     }
     return total;
   }

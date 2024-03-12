@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/reports/month_budget.dart';
-import '../../widgets/reports/monthly_statistics.dart';
+import 'month_budget.dart';
+import 'monthly_statistics.dart';
 
 class AnalyticsReports extends StatelessWidget {
   const AnalyticsReports({

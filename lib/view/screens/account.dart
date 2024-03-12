@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:expense_tracker/core/constants/routes.dart';
+import 'package:expense_tracker/core/model/expenses_model.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/account/account_features.dart';
@@ -28,16 +29,9 @@ class AccountPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Sign In",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    Text("Sign In ,more exciting!"),
-                  ],
+                Text(
+                  ExpensesModel.user,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 )
               ],
             ),
@@ -50,9 +44,12 @@ class AccountPage extends StatelessWidget {
                   title: "Shopping List",
                   iconData: Icons.shopping_bag_outlined),
             ),
-           InkWell(onTap: (){
-             Navigator.pushNamed(context, AppRoutes.settings);
-           },child: ListFeatures(title: "Settings", iconData: Icons.settings))
+            InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.settings);
+                },
+                child:
+                    ListFeatures(title: "Settings", iconData: Icons.settings))
           ],
         ),
       ),

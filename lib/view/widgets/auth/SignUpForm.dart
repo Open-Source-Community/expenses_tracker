@@ -1,7 +1,9 @@
+import 'package:expense_tracker/core/model/expenses_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/routes.dart';
 import '../../../core/model/UserModel.dart';
+import '../../../core/model/incomes_model.dart';
 import '../../../data/sqlflite.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -85,6 +87,8 @@ class _SignUpFormState extends State<SignUpForm> {
                 if (username.isNotEmpty &&
                     password.isNotEmpty &&
                     password.compareTo(confirm) == 0) {
+                  ExpensesModel.user = username;
+                  IncomeModel.user = username;
                   int? response = await db.insertUser(user);
                   Navigator.of(context, rootNavigator: true)
                       .pushNamed(AppRoutes.signIn);
