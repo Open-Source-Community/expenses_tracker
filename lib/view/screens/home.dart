@@ -5,6 +5,7 @@ import 'package:expense_tracker/view/screens/charts.dart';
 import 'package:expense_tracker/view/screens/records.dart';
 import 'package:expense_tracker/view/screens/reports.dart';
 import 'package:flutter/material.dart';
+import '../../core/constants/constants.dart';
 import '../widgets/auth/LoginForm.dart';
 import '../widgets/categories_list.dart';
 import '../widgets/custom_toggle_switch.dart';
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
         currentIndex: currentIndex,
         backgroundColor: const Color.fromARGB(255, 43, 43, 43),
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.amber,
+        selectedItemColor: ColorManager.yellow,
         iconSize: 30,
         onTap: (value) {
           setState(() {
@@ -67,12 +68,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print(ExpensesModel.expensesList);
-          print(IncomeModel.incomeList);
-          print(ExpensesModel.expensesList.length);
-          print(IncomeModel.incomeList.length);
           showModalBottomSheet(
-            // scrollControlDisabledMaxHeightRatio: BorderSide.strokeAlignCenter,
             useRootNavigator: true,
             useSafeArea: true,
             isScrollControlled: true,
@@ -104,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                                 ExpensesModel.toggle = 0;
                               });
                             },
-                            child: Center(
+                            child: const Center(
                               child: Text("Cancel",
                                   style:
                                       TextStyle(fontWeight: FontWeight.w500)),
@@ -112,7 +108,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                           centerTitle: true,
                           title: const Text("Add",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorManager.yellow)),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 30),
@@ -145,7 +143,7 @@ class _HomePageState extends State<HomePage> {
             },
           );
         },
-        backgroundColor: Colors.amber,
+        backgroundColor: ColorManager.yellow,
         child: const Icon(
           Icons.add,
           size: 30,

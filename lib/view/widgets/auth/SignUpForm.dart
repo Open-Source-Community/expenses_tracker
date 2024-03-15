@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/routes.dart';
 import '../../../core/model/UserModel.dart';
 import '../../../core/model/incomes_model.dart';
+import '../../../core/model/list_model.dart';
 import '../../../data/sqlflite.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -34,12 +35,12 @@ class _SignUpFormState extends State<SignUpForm> {
         children: [
           TextField(
             decoration: InputDecoration(
-                label: Text("Username"),
+                label: const Text("Username"),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-                icon: Icon(Icons.person),
+                icon: const Icon(Icons.person),
                 filled: true,
-                fillColor: Color.fromARGB(255, 43, 43, 43)),
+                fillColor: const Color.fromARGB(255, 43, 43, 43)),
             controller: userValue,
           ),
           const SizedBox(
@@ -48,31 +49,31 @@ class _SignUpFormState extends State<SignUpForm> {
           TextField(
             obscureText: true,
             decoration: InputDecoration(
-                icon: Icon(Icons.lock),
-                label: Text("Password"),
+                icon: const Icon(Icons.lock),
+                label: const Text("Password"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                fillColor: Color.fromARGB(255, 43, 43, 43),
+                fillColor: const Color.fromARGB(255, 43, 43, 43),
                 filled: true),
             controller: passValue,
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           TextField(
             obscureText: true,
             decoration: InputDecoration(
-                icon: Icon(Icons.lock),
-                label: Text("Confirm Password"),
+                icon: const Icon(Icons.lock),
+                label: const Text("Confirm Password"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                fillColor: Color.fromARGB(255, 43, 43, 43),
+                fillColor: const Color.fromARGB(255, 43, 43, 43),
                 filled: true),
             controller: confirmValue,
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           ElevatedButton(
@@ -89,6 +90,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     password.compareTo(confirm) == 0) {
                   ExpensesModel.user = username;
                   IncomeModel.user = username;
+                  ListModel.user = user.username;
                   int? response = await db.insertUser(user);
                   Navigator.of(context, rootNavigator: true)
                       .pushNamed(AppRoutes.signIn);
@@ -96,43 +98,43 @@ class _SignUpFormState extends State<SignUpForm> {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                            title: Text("Error",
+                            title: const Text("Error",
                                 style: TextStyle(color: Colors.yellow)),
-                            content: Text(
+                            content: const Text(
                               "Not the same password!",
                               style: TextStyle(fontSize: 20),
                             ),
-                            icon: Icon(Icons.error, color: Colors.red),
+                            icon: const Icon(Icons.error, color: Colors.red),
                             actions: <Widget>[
                               TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text("Ok"))
+                                  child: const Text("Ok"))
                             ],
                           ));
                 } else {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                            title: Text(
+                            title: const Text(
                               "Error",
                               style: TextStyle(color: Colors.yellow),
                             ),
-                            content: Text("Empty TextFields!",
+                            content: const Text("Empty TextFields!",
                                 style: TextStyle(fontSize: 20)),
-                            icon: Icon(Icons.error, color: Colors.red),
+                            icon: const Icon(Icons.error, color: Colors.red),
                             actions: <Widget>[
                               TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text("Ok"))
+                                  child: const Text("Ok"))
                             ],
                           ));
                 }
               },
-              child: Text("Submit")),
+              child: const Text("Submit")),
         ],
       ),
     );

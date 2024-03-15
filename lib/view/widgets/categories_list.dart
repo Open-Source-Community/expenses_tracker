@@ -6,6 +6,7 @@ import 'package:expense_tracker/view/widgets/customtextfieldform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../core/constants/constants.dart';
 import '../../core/functions/validinput.dart';
 
 class CategoriesList extends StatefulWidget {
@@ -70,7 +71,7 @@ class _CategoriesListState extends State<CategoriesList> {
                               style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.amber),
+                                  color: ColorManager.yellow),
                             ),
                           ),
                           contentPadding:
@@ -111,7 +112,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                       },
                                       child: const Icon(
                                         Icons.calendar_month_outlined,
-                                        color: Colors.amber,
+                                        color: ColorManager.yellow,
                                       )),
                                   StatefulBuilder(
                                     builder: (context, setState) => Text(
@@ -133,12 +134,10 @@ class _CategoriesListState extends State<CategoriesList> {
                                       case 0:
                                         check = expenses.add(index);
                                         expenses.calcTotal();
-
                                         break;
                                       case 1:
                                         check = incomes.add(index);
                                         incomes.calcTotal();
-
                                         break;
                                       default:
                                         break;
@@ -161,7 +160,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.amber),
+                                      color: ColorManager.yellow),
                                 )),
                             TextButton(
                                 onPressed: () {
@@ -178,7 +177,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.amber),
+                                      color: Colors.red),
                                 )),
                           ],
                         ),
@@ -190,7 +189,7 @@ class _CategoriesListState extends State<CategoriesList> {
               CircleAvatar(
                 radius: 25,
                 backgroundColor: selectItem == index && selectItem != -1
-                    ? Colors.amber
+                    ? ColorManager.yellow
                     : const Color.fromARGB(255, 63, 63, 63),
                 child: Icon(
                   widget.categories[index]["icon"],

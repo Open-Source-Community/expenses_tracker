@@ -1,10 +1,12 @@
 import 'package:expense_tracker/core/model/UserModel.dart';
 import 'package:expense_tracker/core/model/expenses_model.dart';
 import 'package:expense_tracker/core/model/incomes_model.dart';
+import 'package:expense_tracker/core/model/list_model.dart';
 import 'package:expense_tracker/data/sqlflite.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/routes.dart';
+import '../../../core/controllers/read_data_cubit/read_data_cubit.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -74,8 +76,10 @@ class _LoginFormState extends State<LoginForm> {
                   if (user?.password.compareTo(password) == 0) {
                     ExpensesModel.user = user!.username;
                     IncomeModel.user = user.username;
+                    ListModel.user = user.username;
                     ExpensesModel.expensesList.clear();
                     IncomeModel.incomeList.clear();
+                    ReadDataCubit.listdata.clear();
                     for (var element in ExpensesModel.notifierListener.value) {
                       if (element.username?.compareTo(user.username) == 0) {
                         ExpensesModel.expensesList.add(element);
