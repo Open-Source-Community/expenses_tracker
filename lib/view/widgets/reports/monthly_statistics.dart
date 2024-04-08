@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../components/constants/constants.dart';
 import 'details_bar_reports.dart';
 
 class MonthlyStatistics extends StatelessWidget {
@@ -26,7 +27,10 @@ class MonthlyStatistics extends StatelessWidget {
             child: ListTile(
               title: const Text(
                 "Monthly Statistics",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.yellow),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios_rounded,

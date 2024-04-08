@@ -1,7 +1,7 @@
-import 'package:expense_tracker/core/controllers/write_data_cubit/write_data_cubit.dart';
+import 'package:expense_tracker/cubit/write_data_cubit/write_data_cubit.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/constants.dart';
+import '../../../components/constants/constants.dart';
 import 'list_icon.dart';
 
 class IconRow extends StatelessWidget {
@@ -21,12 +21,12 @@ class IconRow extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             return IconButton(
-              shoppingIconslist: shoppingIconslist,
+              shoppingIconslist: shoppingIconsList,
               activeIndex: activeIndex,
               index: index,
             );
           },
-          itemCount: shoppingIconslist.length,
+          itemCount: shoppingIconsList.length,
           scrollDirection: Axis.horizontal,
           separatorBuilder: (context, index) => SizedBox(width: 7),
         ),
@@ -50,7 +50,7 @@ class IconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => writeDataCubit.get(context).UpdateIndexIcon(index),
+      onTap: () => WriteDataCubit.get(context).updateIndexIcon(index),
       child: Container(
         height: 50,
         width: 50,

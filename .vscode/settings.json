@@ -1,9 +1,20 @@
 {
     "cSpell.words": [
+        "ARGB",
+        "databasepath",
         "formdata",
+        "formstate",
+        "giftcard",
         "hinttext",
         "Hiveconstants",
         "indexicon",
-        "signin"
+        "intial",
+        "keystate",
+        "labeltext",
+        "mydb",
+        "signin",
+        "sqflite",
+        "textbody",
+        "textitle"
     ]
 }

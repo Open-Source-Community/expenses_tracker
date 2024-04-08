@@ -1,4 +1,4 @@
-import 'package:expense_tracker/view/screens/records.dart';
+import 'package:expense_tracker/view/screens/records_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../categories_list.dart';

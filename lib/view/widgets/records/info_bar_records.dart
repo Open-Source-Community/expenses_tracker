@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../components/constants/constants.dart';
+
 class InformationBar extends StatelessWidget {
   final String title;
   final String data;
@@ -16,12 +18,14 @@ class InformationBar extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-              color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 16),
+          style: const TextStyle(
+              color: ColorManager.yellow,
+              fontWeight: FontWeight.w500,
+              fontSize: 16),
         ),
         Text(
           data,
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
         ),
       ],
     );

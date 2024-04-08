@@ -1,11 +1,11 @@
-import 'package:expense_tracker/core/controllers/write_data_cubit/write_data_cubit.dart';
+import 'package:expense_tracker/cubit/write_data_cubit/write_data_cubit.dart';
 import 'package:expense_tracker/view/widgets/shoplist/list_item.dart';
 import 'package:expense_tracker/view/widgets/shoplist/no_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/controllers/read_data_cubit/read_data_cubit.dart';
-import '../../../core/controllers/read_data_cubit/read_data_cubit_states.dart';
-import '../../../core/model/list_model.dart';
+import '../../../cubit/read_data_cubit/read_data_cubit.dart';
+import '../../../cubit/read_data_cubit/read_data_cubit_states.dart';
+import '../../../model/list_model.dart';
 import 'loading_widget.dart';
 import 'minus_from_budget.dart';
 
@@ -46,8 +46,7 @@ class shoppingListBody extends StatelessWidget {
                         context: context,
                         builder: (context) => MinusFromBudget());
                   }
-                  writeDataCubit
-                      .get(context)
+                  WriteDataCubit.get(context)
                       .deleteList(lists[index].indexOfList);
                   ReadDataCubit.get(context).getLists();
                 },

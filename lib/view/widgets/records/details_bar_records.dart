@@ -1,4 +1,4 @@
-import 'package:expense_tracker/view/screens/records.dart';
+import 'package:expense_tracker/view/screens/records_screen.dart';
 import 'package:expense_tracker/view/widgets/categories_list.dart';
 import 'package:flutter/material.dart';
 import 'info_bar_records.dart';
@@ -29,7 +29,7 @@ class _DetailsBarRecordsState extends State<DetailsBarRecords> {
       children: [
         InformationBar(
             title: dateYearController.text, data: dateMonthController.text),
-        Text(
+        const Text(
           "|",
           style: TextStyle(color: Colors.grey, fontSize: 30),
         ),

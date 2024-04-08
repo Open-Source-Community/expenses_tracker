@@ -1,13 +1,12 @@
-import 'package:expense_tracker/core/constants/routes.dart';
-import 'package:expense_tracker/core/model/expenses_model.dart';
-import 'package:expense_tracker/core/model/incomes_model.dart';
-import 'package:expense_tracker/view/screens/charts.dart';
-import 'package:expense_tracker/view/widgets/customtextfieldform.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:expense_tracker/components/constants/routes.dart';
+import 'package:expense_tracker/model/expenses_model.dart';
+import 'package:expense_tracker/model/incomes_model.dart';
+import 'package:expense_tracker/view/screens/charts_screen.dart';
+import 'package:expense_tracker/view/widgets/auth/customtextfieldform.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../core/constants/constants.dart';
-import '../../core/functions/validinput.dart';
+import '../../components/constants/constants.dart';
+import '../../components/components.dart';
 
 class CategoriesList extends StatefulWidget {
   final int length;
@@ -63,6 +62,7 @@ class _CategoriesListState extends State<CategoriesList> {
                   builder: (context) => Form(
                         key: ExpensesModel.formstate,
                         child: AlertDialog(
+                          scrollable: true,
                           title: Center(
                             child: Text(
                               ExpensesModel.toggle == 0
@@ -82,14 +82,20 @@ class _CategoriesListState extends State<CategoriesList> {
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              CustomTextFormAuth(
-                                label: "Amount",
+                              const SizedBox(height: 20),
+                              CustomTextField(
+                                labeltext: "Amount",
                                 keyboardType: TextInputType.number,
                                 hinttext: "Enter amount ",
                                 mycontroller: ExpensesModel.amountController,
                                 validate: (val) {
-                                  return validInput(val!, "number");
+                                  return validInput(val!, 1, 10, "number");
                                 },
+                                isPassword: false,
+                                suffix: IconButton(
+                                    icon: const Icon(Icons.monetization_on),
+                                    onPressed: () {},
+                                    color: ColorManager.yellow),
                               ),
                               Row(
                                 children: [

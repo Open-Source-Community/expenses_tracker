@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/constants.dart';
+import '../../../components/constants/constants.dart';
 
 class CreateButton extends StatelessWidget {
   const CreateButton({super.key, required this.OnTap, required this.label});

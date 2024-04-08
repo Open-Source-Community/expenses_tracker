@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../components/constants/constants.dart';
 import '../categories_list.dart';
 import 'budget_details.dart';
 
@@ -38,7 +39,10 @@ class _MonthlyBudgetState extends State<MonthlyBudget> {
           child: ListTile(
             title: const Text(
               "Monthly Budget",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: ColorManager.yellow),
             ),
             trailing: Icon(
               Icons.arrow_forward_ios_rounded,

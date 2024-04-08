@@ -1,7 +1,7 @@
-import 'package:expense_tracker/core/controllers/write_data_cubit/write_data_cubit.dart';
+import 'package:expense_tracker/cubit/write_data_cubit/write_data_cubit.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/constants.dart';
+import '../../../components/constants/constants.dart';
 
 class FromBudget extends StatelessWidget {
   const FromBudget({
@@ -22,7 +22,7 @@ class FromBudget extends StatelessWidget {
           activeColor: ColorManager.yellow,
           value: fromBudget,
           onChanged: (value) =>
-              writeDataCubit.get(context).UpdatefromBudget(!fromBudget),
+              WriteDataCubit.get(context).updateFromBudget(!fromBudget),
         ),
       ],
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/constants.dart';
-import '../../../core/model/list_model.dart';
+import '../../../components/constants/constants.dart';
+import '../../../model/list_model.dart';
 import 'list_icon.dart';
 
 class ListItem extends StatelessWidget {
@@ -17,7 +17,7 @@ class ListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        leading: ListIcon(icon: shoppingIconslist[list.indexicon]),
+        leading: ListIcon(icon: shoppingIconsList[list.indexicon]),
         title: Text(
           list.listName,
           style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w400),

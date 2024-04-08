@@ -1,5 +1,5 @@
-import 'package:expense_tracker/core/model/expenses_model.dart';
-import 'package:expense_tracker/core/model/incomes_model.dart';
+import 'package:expense_tracker/model/expenses_model.dart';
+import 'package:expense_tracker/model/incomes_model.dart';
 import 'package:hive/hive.dart';
 
 class HiveHelper {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../components/constants/constants.dart';
+
 class ExceptionWidget extends StatelessWidget {
   const ExceptionWidget({super.key, required this.message, required this.icon});
   final String message;
@@ -12,14 +14,14 @@ class ExceptionWidget extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: const Color.fromARGB(108, 255, 255, 255),
+            color: ColorManager.yellow,
             size: 40,
           ),
           Text(
             textAlign: TextAlign.center,
             message,
             style: const TextStyle(
-              color: Color.fromARGB(108, 255, 255, 255),
+              color: ColorManager.yellow,
               fontSize: 15,
             ),
           ),
