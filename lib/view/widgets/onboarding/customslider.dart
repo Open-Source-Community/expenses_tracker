@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../components/components.dart';
+import '../../../components/constants/constants.dart';
 import '../../../cubit/onboarding_cubit/onboarding_cubit.dart';
 
 import '../../../data/static.dart';
@@ -32,7 +33,7 @@ class CustomSliderOnBoarding extends StatelessWidget {
                   width: width,
                   child: Image.asset(
                     onBoardingList[i].image!,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 SingleChildScrollView(
@@ -53,7 +54,7 @@ class CustomSliderOnBoarding extends StatelessWidget {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 28,
-                                        color: Colors.white),
+                                        color: ColorManager.yellow),
                                   ),
                                 ),
                               ),
@@ -61,20 +62,18 @@ class CustomSliderOnBoarding extends StatelessWidget {
                                 onTap: () => navigateToReplacement(
                                     context, const LoginScreen()),
                                 child: Container(
-                                  height: 35,
-                                  width: 70,
+                                  height: 30,
+                                  width: 60,
                                   decoration: BoxDecoration(
-                                      color: const Color(0xff181818),
+                                      color: ColorManager.yellow,
                                       borderRadius: BorderRadius.circular(40)),
                                   child: const Center(
-                                    child: Text(
-                                      "Skip",
-                                      style: TextStyle(
+                                    child: Text("Skip",
+                                        style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color: Color.fromARGB(
-                                              255, 233, 231, 231)),
-                                    ),
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        )),
                                   ),
                                 ),
                               ),

@@ -1,11 +1,9 @@
+import 'package:expense_tracker/cubit/records_cubit/read_records_cubit.dart';
 import 'package:expense_tracker/view/screens/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../components/components.dart';
 import '../../../components/constants/constants.dart';
-import '../../../components/constants/imageassets.dart';
 import '../../../cubit/login_cubit/login_cubit.dart';
 import '../../../cubit/login_cubit/login_states.dart';
 import '../../widgets/auth/custombuttonauth.dart';
@@ -122,17 +120,13 @@ class LoginScreen extends StatelessWidget {
       );
     }, listener: (context, state) {
       if (state is LoginSuccessState) {
+        ReadRecordsCubit.get(context).getLists();
         showToast(text: "Login Successfully", color: Colors.green);
-
         navigateToReplacement(context, HomeScreen());
       }
       if (state is LoginGoToSignUpState) {
         navigateToReplacement(context, const SignUpScreen());
       }
-      // if (state is LoginWithGoogleState) {
-      //   showToast(text: "Login Successfully", color: Colors.green);
-      //   navigateToReplacement(context, HomeScreen());
-      // }
     });
   }
 }

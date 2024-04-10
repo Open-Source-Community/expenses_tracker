@@ -1,44 +1,42 @@
-import 'package:expense_tracker/view/screens/records_screen.dart';
+import 'package:expense_tracker/cubit/records_cubit/read_records_cubit.dart';
+import 'package:expense_tracker/cubit/records_cubit/read_records_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
-import '../categories_list.dart';
 import 'info_bar_reports.dart';
 
-class DetailsBarReports extends StatefulWidget {
+class DetailsBarReports extends StatelessWidget {
   const DetailsBarReports({
     super.key,
   });
 
   @override
-  State<DetailsBarReports> createState() => _DetailsBarReportsState();
-}
-
-class _DetailsBarReportsState extends State<DetailsBarReports> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      incomes.total;
-      expenses.total;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text(
-          dateMonthController.text,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        InformationBarReports(title: "Expenses", data: "${expenses.total}"),
-        InformationBarReports(title: "Income", data: "${incomes.total}"),
-        InformationBarReports(
-            title: "Balance", data: "${incomes.total - expenses.total}"),
-      ],
+    return BlocConsumer<ReadRecordsCubit, ReadRecordsCubitStates>(
+      builder: (context, state) {
+        ReadRecordsCubit.get(context).dateMonthController.text =
+            DateFormat.MMM().format(DateTime.now());
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              ReadRecordsCubit.get(context).dateMonthController.text,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            InformationBarReports(
+                title: "Expenses", data: "${ReadRecordsCubit.totalExpenses}"),
+            InformationBarReports(
+                title: "Income", data: "${ReadRecordsCubit.totalIncomes}"),
+            InformationBarReports(
+                title: "Balance",
+                data:
+                    "${ReadRecordsCubit.totalIncomes - ReadRecordsCubit.totalExpenses}"),
+          ],
+        );
+      },
+      listener: (context, state) {},
     );
   }
 }

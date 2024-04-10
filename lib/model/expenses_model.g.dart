@@ -17,22 +17,25 @@ class ExpensesModelAdapter extends TypeAdapter<ExpensesModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ExpensesModel(
+      indexOfList: fields[3] as int,
       amount: fields[0] as double,
-      index: fields[1] as int,
-      username: fields[2] as String?,
+      username: fields[2] as String,
+      indexIcons: fields[1] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ExpensesModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.amount)
       ..writeByte(1)
-      ..write(obj.index)
+      ..write(obj.indexIcons)
       ..writeByte(2)
-      ..write(obj.username);
+      ..write(obj.username)
+      ..writeByte(3)
+      ..write(obj.indexOfList);
   }
 
   @override

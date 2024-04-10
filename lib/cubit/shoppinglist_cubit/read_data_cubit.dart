@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'read_data_cubit_states.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,32 +11,30 @@ class ReadDataCubit extends Cubit<ReadDataCubitStates> {
   ReadDataCubit() : super(ReadDataCubitInitialState());
   final Box _box = Hive.box(Hiveconstants.shoppingListBox);
   static List<ListModel> listData = [];
-
+  static double total = 0.0;
   void getLists() {
     emit(ReadDataCubitLoadingState());
     try {
-      // ignore: non_constant_identifier_names
       listData.clear();
-      List<ListModel> ListToReturn =
+      total = 0.0;
+      List<ListModel> listToReturn =
           List.from(_box.get(Hiveconstants.shoppingListKey, defaultValue: []))
               .cast<ListModel>();
 
-      for (int i = 0; i < ListToReturn.length; i++) {
-        if (ListToReturn[i].username.compareTo(ListModel.user) == 0) {
-          listData.add(ListToReturn[i]);
+      for (int i = 0; i < listToReturn.length; i++) {
+        if (listToReturn[i].username.compareTo(ListModel.user) == 0) {
+          listData.add(listToReturn[i]);
+          if (listToReturn[i].fromBudget == true) {
+            total += listToReturn[i].price;
+          }
         }
-        print("All data====================================");
-        print(ListToReturn[i].listName);
-        print(ListToReturn[i].indexOfList);
-        print(ListToReturn[i].fromBudget);
-        print(ListToReturn[i].indexicon);
-        print(ListToReturn[i].username);
       }
       emit(ReadDataCubitSuccessState(Lists: listData));
     } catch (e) {
-      emit(ReadDataCubitFailedState(
-          message:
-              "problem in get list########################################"));
+      emit(ReadDataCubitFailedState(message: "Problem in get list :("));
     }
+  }
+  void notDelete(){
+     emit(ReadDataCubitSuccessState(Lists: listData));
   }
 }

@@ -1,43 +1,46 @@
-import 'package:expense_tracker/view/screens/records_screen.dart';
-import 'package:expense_tracker/view/widgets/categories_list.dart';
+import 'package:expense_tracker/cubit/records_cubit/read_records_cubit.dart';
+import 'package:expense_tracker/cubit/records_cubit/read_records_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'info_bar_records.dart';
 
-class DetailsBarRecords extends StatefulWidget {
+class DetailsBarRecords extends StatelessWidget {
   const DetailsBarRecords({
     super.key,
   });
 
   @override
-  State<DetailsBarRecords> createState() => _DetailsBarRecordsState();
-}
-
-class _DetailsBarRecordsState extends State<DetailsBarRecords> {
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      incomes.total;
-      expenses.total;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        InformationBar(
-            title: dateYearController.text, data: dateMonthController.text),
-        const Text(
-          "|",
-          style: TextStyle(color: Colors.grey, fontSize: 30),
-        ),
-        InformationBar(title: "Expenses", data: "${expenses.total}"),
-        InformationBar(title: "Income", data: "${incomes.total}"),
-        InformationBar(
-            title: "Balance", data: "${incomes.total - expenses.total}"),
-      ],
+    return BlocConsumer<ReadRecordsCubit, ReadRecordsCubitStates>(
+      builder: (context, state) {
+        ReadRecordsCubit.get(context).dateYearController.text =
+            DateFormat.y().format(DateTime.now());
+        ReadRecordsCubit.get(context).dateMonthController.text =
+            DateFormat.MMM().format(DateTime.now());
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InformationBar(
+                title: ReadRecordsCubit.get(context).dateYearController.text,
+                data: ReadRecordsCubit.get(context).dateMonthController.text),
+            const Text(
+              "|",
+              style: TextStyle(color: Colors.grey, fontSize: 30),
+            ),
+            InformationBar(
+                title: "Expenses", data: "${ReadRecordsCubit.totalExpenses}"),
+            InformationBar(
+                title: "Income", data: "${ReadRecordsCubit.totalIncomes}"),
+            InformationBar(
+                title: "Balance",
+                data:
+                    "${ReadRecordsCubit.totalIncomes - ReadRecordsCubit.totalExpenses}"),
+          ],
+        );
+      },
+      listener: (context, state) {},
     );
   }
 }

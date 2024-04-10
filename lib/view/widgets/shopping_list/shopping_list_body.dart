@@ -1,13 +1,13 @@
-import 'package:expense_tracker/cubit/write_data_cubit/write_data_cubit.dart';
-import 'package:expense_tracker/view/widgets/shoplist/list_item.dart';
-import 'package:expense_tracker/view/widgets/shoplist/no_list.dart';
+import 'package:expense_tracker/cubit/shoppinglist_cubit/write_data_cubit.dart';
+import 'package:expense_tracker/view/widgets/shopping_list/list_item.dart';
+import 'package:expense_tracker/view/widgets/shopping_list/no_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../cubit/read_data_cubit/read_data_cubit.dart';
-import '../../../cubit/read_data_cubit/read_data_cubit_states.dart';
+import '../../../cubit/shoppinglist_cubit/read_data_cubit.dart';
+import '../../../cubit/shoppinglist_cubit/read_data_cubit_states.dart';
 import '../../../model/list_model.dart';
 import 'loading_widget.dart';
-import 'minus_from_budget.dart';
+import 'confirm_delete_list.dart';
 
 class shoppingListBody extends StatelessWidget {
   const shoppingListBody({
@@ -40,17 +40,22 @@ class shoppingListBody extends StatelessWidget {
           itemBuilder: (context, index) {
             return Dismissible(
                 key: UniqueKey(),
-                onDismissed: (DismissDirection) {
+                onDismissed: (direction) {
                   if (lists[index].fromBudget) {
                     showDialog(
                         context: context,
-                        builder: (context) => MinusFromBudget());
+                        builder: (context) =>
+                            ConfirmDeleteList(listModel: lists[index]));
+                  } else {
+                    WriteDataCubit.get(context)
+                        .deleteList(lists[index].indexOfList);
+                    ReadDataCubit.get(context).getLists();
                   }
-                  WriteDataCubit.get(context)
-                      .deleteList(lists[index].indexOfList);
-                  ReadDataCubit.get(context).getLists();
                 },
-                background: const Icon(Icons.delete),
+                background: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
                 child: ListItem(list: lists[index]));
           }),
     );
@@ -68,6 +73,6 @@ class shoppingListBody extends StatelessWidget {
   }
 
   Widget _getLoadingWidget() {
-    return const LoadimgWidget();
+    return const LoadingWidget();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:expense_tracker/cubit/write_data_cubit/write_data_cubit.dart';
+import 'package:expense_tracker/cubit/shoppinglist_cubit/write_data_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/constants/constants.dart';

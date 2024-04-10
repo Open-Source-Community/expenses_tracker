@@ -16,7 +16,7 @@ class ListItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         leading: ListIcon(icon: shoppingIconsList[list.indexicon]),
         title: Text(
           list.listName,
@@ -32,7 +32,7 @@ class ListItem extends StatelessWidget {
         ),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Color.fromARGB(255, 62, 62, 62))),
+            side: const BorderSide(color: Color.fromARGB(255, 62, 62, 62))),
       ),
     );
   }

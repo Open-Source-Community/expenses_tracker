@@ -12,6 +12,8 @@
         "keystate",
         "labeltext",
         "mydb",
+        "shoplist",
+        "shoppinglist",
         "signin",
         "sqflite",
         "textbody",

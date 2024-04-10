@@ -1,25 +1,23 @@
-import '/../view/widgets/shoplist/create_button.dart';
-import '/../view/widgets/shoplist/icon_row.dart';
-import '../../../cubit/read_data_cubit/read_data_cubit.dart';
-import '/../view/widgets/shoplist/custom_form_field.dart';
+import 'create_button.dart';
+import 'icon_row.dart';
+import '../../../cubit/shoppinglist_cubit/read_data_cubit.dart';
+import 'custom_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../components/constants/constants.dart';
-import '../../../cubit/write_data_cubit/write_data_cubit.dart';
-import '../../../cubit/write_data_cubit/write_data_cubit_states.dart';
+import '../../../cubit/shoppinglist_cubit/write_data_cubit.dart';
+import '../../../cubit/shoppinglist_cubit/write_data_cubit_states.dart';
 import 'from_budget.dart';
 
-class AddList extends StatefulWidget {
-  const AddList({super.key});
+class AddList extends StatelessWidget {
+  AddList({super.key});
 
-  @override
-  State<AddList> createState() => _AddListState();
-}
-
-class _AddListState extends State<AddList> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController priceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -36,6 +34,7 @@ class _AddListState extends State<AddList> {
         }
       },
       builder: (context, state) {
+        WriteDataCubit cubit = WriteDataCubit.get(context);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
           child: SingleChildScrollView(
@@ -52,6 +51,7 @@ class _AddListState extends State<AddList> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }
+                      return null;
                     },
                     onChanged: (val) =>
                         WriteDataCubit.get(context).updateListName(val),
@@ -66,21 +66,19 @@ class _AddListState extends State<AddList> {
 
                       return null;
                     },
-                    onChanged: (val) => WriteDataCubit.get(context)
-                        .updatePrice(double.parse(val)),
+                    onChanged: (val) => cubit.updatePrice(double.parse(val)),
                     controller: priceController,
                     label: "Price"),
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Choose Icon ",
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                 ),
-                IconRow(activeIndex: WriteDataCubit.get(context).indexIcon),
+                IconRow(activeIndex: cubit.indexIcon),
                 FromBudget(
-                  fromBudget: WriteDataCubit.get(context).fromBudget,
+                  fromBudget: cubit.fromBudget,
                 ),
                 const SizedBox(
                   height: 5,
@@ -92,8 +90,10 @@ class _AddListState extends State<AddList> {
                       label: "Add",
                       OnTap: () {
                         if (formKey.currentState!.validate()) {
-                          WriteDataCubit.get(context).addList();
+                          cubit.addList();
                           ReadDataCubit.get(context).getLists();
+                          cubit.updateFromBudget(false);
+                          cubit.updateIndexIcon(0);
                         }
                       },
                     ),

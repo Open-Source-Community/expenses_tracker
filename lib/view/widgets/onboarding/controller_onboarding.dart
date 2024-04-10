@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../components/components.dart';
+import '../../../components/constants/constants.dart';
 import '../../../cubit/onboarding_cubit/onboarding_cubit.dart';
 import '../../../cubit/onboarding_cubit/onboarding_states.dart';
 import '../../../data/static.dart';
@@ -27,7 +28,7 @@ class ControllerOnBoarding extends StatelessWidget {
                       height: 5,
                       width: cubit.currentPage == index ? 25 : 5,
                       decoration: BoxDecoration(
-                          color: const Color(0xffABA4A2),
+                          color: ColorManager.yellow,
                           borderRadius: BorderRadius.circular(10)),
                     ))
           ],

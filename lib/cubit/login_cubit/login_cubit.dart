@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:expense_tracker/cubit/login_cubit/login_states.dart';
+import 'package:expense_tracker/cubit/records_cubit/read_records_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +11,7 @@ import '../../model/UserModel.dart';
 import '../../model/expenses_model.dart';
 import '../../model/incomes_model.dart';
 import '../../model/list_model.dart';
-import '../read_data_cubit/read_data_cubit.dart';
+import '../shoppinglist_cubit/read_data_cubit.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
@@ -38,19 +39,20 @@ class LoginCubit extends Cubit<LoginStates> {
           ExpensesModel.user = user!.username;
           IncomeModel.user = user.username;
           ListModel.user = user.username;
-          ExpensesModel.expensesList.clear();
-          IncomeModel.incomeList.clear();
+          ReadRecordsCubit.listExpenses.clear();
+          ReadRecordsCubit.listIncomes.clear();
           ReadDataCubit.listData.clear();
-          for (var element in ExpensesModel.notifierListener.value) {
-            if (element.username?.compareTo(user.username) == 0) {
-              ExpensesModel.expensesList.add(element);
+          for (var element in ReadRecordsCubit.listExpenses) {
+            if (element.username.compareTo(user.username) == 0) {
+              ReadRecordsCubit.listExpenses.add(element);
             }
           }
-          for (var element in IncomeModel.notifierListener.value) {
-            if (element.username?.compareTo(user.username) == 0) {
-              IncomeModel.incomeList.add(element);
+          for (var element in ReadRecordsCubit.listIncomes) {
+            if (element.username.compareTo(user.username) == 0) {
+              ReadRecordsCubit.listIncomes.add(element);
             }
           }
+
           emit(LoginSuccessState());
         } else {
           emit(LoginErrorState());

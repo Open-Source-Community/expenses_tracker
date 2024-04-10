@@ -3,15 +3,15 @@ import '../components/constants/imageassets.dart';
 
 List<OnBoardingModel> onBoardingList = [
   OnBoardingModel(
-      title: "If You Looking For \nThe Latest Movies",
-      body: "Setis your fitness just from home without \ngoing outside",
-      image: AppImageAssets.onBoardingOne),
-  OnBoardingModel(
-      title: "Hello Welcome To \nBest Movies",
-      body: "Build your fitness just from home without \ngoing outside",
+      title: "Hello Welcome To \nBest Expenses Manager",
+      body: "Manege your expenses and incomes",
       image: AppImageAssets.onBoardingTwo),
   OnBoardingModel(
-      title: "Only With Us Only \nFor You",
-      body: "my your fitness just from home without \ngoing outside",
+      title: "Expenses Summary\n",
+      body: "Get a Smart,Crisp and Organized view of\nall your expenses",
+      image: AppImageAssets.onBoardingOne),
+  OnBoardingModel(
+      title: "Add Your Expenses\n",
+      body: "Quickly add your cash expenses using\nsimple form",
       image: AppImageAssets.onBoardingThree),
 ];

@@ -14,7 +14,7 @@ class DataItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
           border: Border.fromBorderSide(
               BorderSide(color: Colors.grey.shade600, width: 0.3)),
@@ -22,7 +22,7 @@ class DataItems extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(
           radius: 24,
-          backgroundColor: Color.fromARGB(255, 55, 55, 55),
+          backgroundColor: const Color.fromARGB(255, 55, 55, 55),
           child: Icon(
             iconData,
             color: Colors.amber,
@@ -32,7 +32,7 @@ class DataItems extends StatelessWidget {
         title: Text(title,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         trailing: Text(price,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
     );
   }

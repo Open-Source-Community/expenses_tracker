@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 abstract class Hiveconstants {
   static const String shoppingListBox = "ListBox";
   static const String shoppingListKey = "ShoppingList";
-  static const String itemsBox = "ItemsBox";
+  static const String itemsShoppingListBox = "ItemsBox";
+  static const String expensesListBox = "ListBox";
+  static const String expensesListKey = "ExpensesList";
+  static const String itemExpensesBox = "ItemsBox";
+  static const String incomesListBox = "ListBox";
+  static const String incomesListKey = "IncomesList";
+  static const String itemIncomesBox = "ItemsBox";
 }
 
 abstract class ColorManager {

@@ -1,9 +1,7 @@
 import 'package:expense_tracker/cubit/signup_cubit/signup_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../components/components.dart';
-import '../../components/constants/routes.dart';
 import '../../data/local/sqlflite.dart';
 import '../../model/UserModel.dart';
 import '../../model/expenses_model.dart';
@@ -26,7 +24,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
 
     if (foredate!.validate()) {
       print("Valid");
-      String userValue = username.text.trim();
+      // String userValue = username.text.trim();
       String confirm = confirmPassword.text.trim();
       String passValue = password.text.trim();
       SqlDB db = SqlDB();

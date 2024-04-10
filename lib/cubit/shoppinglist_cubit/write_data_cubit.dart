@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../components/constants/constants.dart';
 import '../../model/list_model.dart';
-import '../read_data_cubit/read_data_cubit.dart';
+import 'read_data_cubit.dart';
 import 'write_data_cubit_states.dart';
 
 class WriteDataCubit extends Cubit<WriteDataCubitStates> {
@@ -39,6 +39,7 @@ class WriteDataCubit extends Cubit<WriteDataCubitStates> {
   void addList() {
     emit(WriteDataCubitLoadingState());
     try {
+      // ShoppingList
       List<ListModel> lists = _getListsFromDataBase();
       lists.add(ListModel(
           indexOfList: lists.length,
@@ -48,6 +49,7 @@ class WriteDataCubit extends Cubit<WriteDataCubitStates> {
           price: price,
           username: ListModel.user));
       box.put(Hiveconstants.shoppingListKey, lists);
+
       emit(WriteDataCubitSuccessState());
     } catch (e) {
       emit(WriteDataCubitFailedState(

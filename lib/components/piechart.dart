@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
+// ignore: must_be_immutable
 class CustomPieChart extends StatelessWidget {
   final Map<String, double> dataMap;
   final String centerTextTotal;

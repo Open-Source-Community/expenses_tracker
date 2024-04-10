@@ -5,7 +5,7 @@ import 'view/screens/auth/login_screen.dart';
 import 'view/screens/auth/signup_screen.dart';
 
 import 'view/screens/home_screen.dart';
-import 'view/screens/shop/shopping_list_screen.dart';
+import 'view/screens/shopping_list_screen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
   AppRoutes.signIn: (context) => const LoginScreen(),

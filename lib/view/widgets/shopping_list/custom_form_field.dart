@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomFormField extends StatefulWidget {
+// ignore: must_be_immutable
+class CustomFormField extends StatelessWidget {
   CustomFormField({
     super.key,
     required this.label,
@@ -16,24 +17,19 @@ class CustomFormField extends StatefulWidget {
   final String? Function(String?)? validator;
 
   @override
-  State<CustomFormField> createState() => _CustomFormFieldState();
-}
-
-class _CustomFormFieldState extends State<CustomFormField> {
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 5, 0, 17),
       child: TextFormField(
-        keyboardType: widget.keyboardType,
+        keyboardType: keyboardType,
         autofocus: true,
-        controller: widget.controller,
+        controller: controller,
         decoration: InputDecoration(
-          labelText: widget.label,
+          labelText: label,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
         ),
-        onChanged: widget.onChanged,
-        validator: widget.validator,
+        onChanged: onChanged,
+        validator: validator,
       ),
     );
   }

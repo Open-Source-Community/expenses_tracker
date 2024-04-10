@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -7,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validate;
   final TextInputType? keyboardType;
   final IconButton? suffix;
+  final void Function(String)? onChanged;
   bool isPassword;
   CustomTextField(
       {super.key,
@@ -16,13 +19,15 @@ class CustomTextField extends StatelessWidget {
       this.validate,
       this.keyboardType,
       this.suffix,
-      this.isPassword = false});
+      this.isPassword = false,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 30),
       child: TextFormField(
+        onChanged: onChanged,
         obscureText: isPassword,
         keyboardType: keyboardType,
         validator: validate,
